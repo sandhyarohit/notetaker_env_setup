@@ -1,0 +1,36 @@
+sudo docker run -p 5432:5432 --name my_postgres -e POSTGRES_PASSWORD=Radha@1234 -e POSTGRES_USER=postgres -d postgres
+
+sudo docker run -p 5555:8978 -d dbeaver/cloudbeaver:latest
+
+CREATE SCHEMA app_note_taker;
+
+ create sequence app_note_taker.app_user_seq
+    start 1
+    increment 1
+    NO MAXVALUE
+    CACHE 1;
+
+
+CREATE TABLE app_note_taker.app_user
+(
+    user_id bigint DEFAULT nextval('app_note_taker.app_user_seq'::regclass) NOT NULL,
+    user_name VARCHAR(100) not null,
+    user_password  VARCHAR(100) not null,
+    is_active Bool default true,
+    created_date bigint null,
+    updated_date bigint null
+);
+
+select * from app_note_taker.app_user;
+
+insert into app_note_taker.app_user(user_name,user_password,is_active) values ('Sandhya', 'Sandhya@123', TRUE);
+
+create user app_uaer;
+create database app_note;
+
+
+alter user app_uaer with encrypted password 'notetaker@123';
+grant all privileges on database app_note to app_uaer;
+
+
+  
